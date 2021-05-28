@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import { formatPrice, pluralize, isNewShoe } from '../../utils';
-import Spacer from '../Spacer';
+import { COLORS, WEIGHTS } from "../../constants";
+import { formatPrice, pluralize, isNewShoe } from "../../utils";
+import Spacer from "../Spacer";
 
 const ShoeCard = ({
   slug,
@@ -26,16 +26,26 @@ const ShoeCard = ({
   // will triumph and be the variant used.
   // prettier-ignore
   const variant = typeof salePrice === 'number'
-    ? 'on-sale'
+    ? 'Sale'
     : isNewShoe(releaseDate)
-      ? 'new-release'
+      ? 'Just Released!'
       : 'default'
 
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <Image alt="" src={imageSrc} />
+          <Image alt='' src={imageSrc} />
+          {variant !== "default" && (
+            <Variant
+              style={{
+                "--bg-color":
+                  variant === "Sale" ? COLORS.primary : COLORS.secondary,
+              }}
+            >
+              {variant}
+            </Variant>
+          )}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -43,16 +53,30 @@ const ShoeCard = ({
           <Price>{formatPrice(price)}</Price>
         </Row>
         <Row>
-          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
         </Row>
       </Wrapper>
     </Link>
   );
 };
 
+const Variant = styled.label`
+  position: absolute;
+  top: 12px;
+  /* the 4px in Figma were not enough to render the UI*/
+  right: -6px;
+  border: 2px solid;
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: ${COLORS.white};
+  font-weight: ${WEIGHTS.medium};
+  background-color: var(--bg-color);
+`;
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  flex: 1 0 340px;
 `;
 
 const Wrapper = styled.article``;
@@ -61,10 +85,13 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
 `;
 
 const Name = styled.h3`
@@ -72,7 +99,9 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  margin-left: auto;
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
