@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { COLORS } from '../../constants';
+import { COLORS } from "../../constants";
 
-import SearchInput from '../SearchInput';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
+import SearchInput from "../SearchInput";
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
 
 const SuperHeader = () => {
   return (
@@ -14,9 +14,9 @@ const SuperHeader = () => {
         Free shipping on domestic orders over $75!
       </MarketingMessage>
       <SearchInput />
-      <HelpLink href="/help">Help</HelpLink>
+      <HelpLink href='/help'>Help</HelpLink>
       <UnstyledButton>
-        <Icon id="shopping-bag" strokeWidth={1} />
+        <Icon id='shopping-bag' strokeWidth={1} />
       </UnstyledButton>
     </Wrapper>
   );
@@ -26,10 +26,16 @@ const Wrapper = styled.div`
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* 12px vertical in Figma adjusted to 8 on the web UI */
+  padding: 8px 32px;
 `;
 
 const MarketingMessage = styled.span`
   color: ${COLORS.white};
+  margin-right: auto;
 `;
 
 const HelpLink = styled.a`
