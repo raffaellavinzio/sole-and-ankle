@@ -53,6 +53,7 @@ const ShoeCard = ({
           <Price
             style={{
               "text-decoration": variant === "Sale" && "line-through",
+              "color": variant === "Sale" && COLORS.gray[700],
             }}
           >
             {formatPrice(price)}
@@ -110,7 +111,6 @@ const Name = styled.h3`
 
 const Price = styled.span`
   margin-left: auto;
-  color: ${COLORS.gray[700]};
 `;
 
 const ColorInfo = styled.p`
