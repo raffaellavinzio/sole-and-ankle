@@ -50,10 +50,19 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price
+            style={{
+              "text-decoration": variant === "Sale" && "line-through",
+            }}
+          >
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          {variant === "Sale" && (
+            <SalePrice>{formatPrice(salePrice)}</SalePrice>
+          )}
         </Row>
       </Wrapper>
     </Link>
@@ -101,6 +110,7 @@ const Name = styled.h3`
 
 const Price = styled.span`
   margin-left: auto;
+  color: ${COLORS.gray[700]};
 `;
 
 const ColorInfo = styled.p`
@@ -110,6 +120,7 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+  margin-left: auto;
 `;
 
 export default ShoeCard;
